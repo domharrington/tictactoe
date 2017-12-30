@@ -2,19 +2,19 @@ const assert = require('assert');
 
 const TicTacToe = artifacts.require('TicTacToe');
 
-contract('TicTacToe', function(accounts) {
-  const [ player1, player2, anotherPlayer ] = accounts;
+contract('TicTacToe', (accounts) => {
+  const [player1, player2/* , anotherPlayer */] = accounts;
 
   describe('TicTacToe()', () => {
     it('should create a new game with the sender as player1', async () => {
       const instance = await TicTacToe.new({ from: player1 });
-      assert.equal(await instance.player1(), player1)
+      assert.equal(await instance.player1(), player1);
     });
 
     it('should have an empty game state', async () => {
       const instance = await TicTacToe.new({ from: player1 });
       const cells = await Promise.all(Array.from(Array(9)).map((_, i) => instance.cells(i)));
-      assert.equal(cells.length, 9)
+      assert.equal(cells.length, 9);
       cells.map(cell => assert.equal(cell.toNumber(), 0));
     });
   });
@@ -25,13 +25,13 @@ contract('TicTacToe', function(accounts) {
 
     it.skip('should error if game already has 2 players', async () => {
       const instance = await TicTacToe.new({ from: player1 });
-      console.log(await instance.joinGame({ from: player2 }))
+      console.log(await instance.joinGame({ from: player2 }));
     });
 
     it('should set player2 with msg.sender', async () => {
       const instance = await TicTacToe.new({ from: player1 });
       await instance.joinGame({ from: player2 });
-      assert.equal(await instance.player2(), player2)
+      assert.equal(await instance.player2(), player2);
     });
   });
 
