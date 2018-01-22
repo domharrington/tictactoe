@@ -20,6 +20,24 @@ function loadGame(address) {
   console.log('Game fetched', window.game, address);
 }
 
+function cellToString(cell) {
+  switch (cell) {
+    case 0: return '-';
+    case 1: return 'X';
+    case 2: return 'O';
+    default: return null;
+  }
+}
+
+async function loadCells() {
+  console.log('Loading cells');
+  const cells = await Promise.all(Array.from(Array(9)).map((_, i) => window.game.cells(i)));
+
+  cells.map(cell => cell.toNumber()).forEach((value, i) => {
+    document.getElementById(`cell-${i}`).innerText = cellToString(value);
+  });
+}
+
 async function createGame() {
   const accounts = await web3.eth.getAccounts();
   const newGame = new web3.eth.Contract(contractArtifact.abi, { from: accounts[0] });
@@ -50,7 +68,8 @@ function router() {
     document.querySelector('[data-route=home]').style.display = 'none';
     document.querySelector('[data-route=game]').style.display = 'block';
     loadGame(qs.address);
-    document.getElementById('game').innerHTML = window.game.address;
+    document.getElementById('game').innerText = window.game.address;
+    loadCells();
   }
 }
 
