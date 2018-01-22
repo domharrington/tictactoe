@@ -29,13 +29,18 @@ function cellToString(cell) {
   }
 }
 
-async function loadCells() {
+function loadCells() {
   console.log('Loading cells');
-  const cells = await Promise.all(Array.from(Array(9)).map((_, i) => window.game.cells(i)));
-
-  cells.map(cell => cell.toNumber()).forEach((value, i) => {
-    document.getElementById(`cell-${i}`).innerText = cellToString(value);
+  Array.from(Array(9)).forEach(async (_, i) => {
+    document.getElementById(`cell-${i}`).innerText = cellToString((await window.game.cells(i)).toNumber());
   });
+}
+
+async function loadGameMeta() {
+  console.log('Loading game meta');
+  document.getElementById('address').innerText = window.game.address;
+  document.getElementById('player1').innerText = await window.game.player1();
+  document.getElementById('player2').innerText = await window.game.player2();
 }
 
 async function createGame() {
@@ -68,7 +73,7 @@ function router() {
     document.querySelector('[data-route=home]').style.display = 'none';
     document.querySelector('[data-route=game]').style.display = 'block';
     loadGame(qs.address);
-    document.getElementById('game').innerText = window.game.address;
+    loadGameMeta();
     loadCells();
   }
 }
