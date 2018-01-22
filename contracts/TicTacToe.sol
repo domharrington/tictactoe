@@ -25,7 +25,7 @@ contract TicTacToe {
     player2 = msg.sender;
   }
 
-  function takeTurn(CellState turn, uint cell) public {
+  function takeTurn(uint cell, CellState turn) public {
     cells[cell] = turn;
   }
 

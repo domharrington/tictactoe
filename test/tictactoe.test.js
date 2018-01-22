@@ -43,7 +43,7 @@ contract('TicTacToe', (accounts) => {
 
     it('should mark the cell with the turn', async () => {
       const instance = await TicTacToe.new({ from: player1 });
-      await instance.takeTurn(1, 0, { from: player1 });
+      await instance.takeTurn(0, 1, { from: player1 });
 
       assert.equal(await instance.cells(0), 1);
     });
@@ -54,9 +54,9 @@ contract('TicTacToe', (accounts) => {
       it('horizontal: should return true', async () => {
         const instance = await TicTacToe.new({ from: player1 });
 
-        await instance.takeTurn(1, 0, { from: player1 });
+        await instance.takeTurn(0, 1, { from: player1 });
         await instance.takeTurn(1, 1, { from: player1 });
-        await instance.takeTurn(1, 2, { from: player1 });
+        await instance.takeTurn(2, 1, { from: player1 });
 
         assert.equal(await instance.isGameOver(), true);
       });
@@ -64,9 +64,9 @@ contract('TicTacToe', (accounts) => {
       it('vertical: should return true', async () => {
         const instance = await TicTacToe.new({ from: player1 });
 
-        await instance.takeTurn(1, 0, { from: player1 });
-        await instance.takeTurn(1, 3, { from: player1 });
-        await instance.takeTurn(1, 6, { from: player1 });
+        await instance.takeTurn(0, 1, { from: player1 });
+        await instance.takeTurn(3, 1, { from: player1 });
+        await instance.takeTurn(6, 1, { from: player1 });
 
         assert.equal(await instance.isGameOver(), true);
       });
@@ -74,9 +74,9 @@ contract('TicTacToe', (accounts) => {
       it('diagonal left->right: should return true', async () => {
         const instance = await TicTacToe.new({ from: player1 });
 
-        await instance.takeTurn(1, 0, { from: player1 });
-        await instance.takeTurn(1, 4, { from: player1 });
-        await instance.takeTurn(1, 8, { from: player1 });
+        await instance.takeTurn(0, 1, { from: player1 });
+        await instance.takeTurn(4, 1, { from: player1 });
+        await instance.takeTurn(8, 1, { from: player1 });
 
         assert.equal(await instance.isGameOver(), true);
       });
@@ -84,9 +84,9 @@ contract('TicTacToe', (accounts) => {
       it('diagonal right->left: should return true', async () => {
         const instance = await TicTacToe.new({ from: player1 });
 
-        await instance.takeTurn(1, 2, { from: player1 });
-        await instance.takeTurn(1, 4, { from: player1 });
-        await instance.takeTurn(1, 5, { from: player1 });
+        await instance.takeTurn(2, 1, { from: player1 });
+        await instance.takeTurn(4, 1, { from: player1 });
+        await instance.takeTurn(5, 1, { from: player1 });
 
         assert.equal(await instance.isGameOver(), true);
       });
