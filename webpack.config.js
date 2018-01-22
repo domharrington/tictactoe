@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: './app/index.js',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
   },
   devtool: 'eval',
@@ -12,7 +12,7 @@ module.exports = {
     new CopyWebpackPlugin([{ from: './app/index.html', to: 'index.html' }]),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'build'),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
   },
 };
