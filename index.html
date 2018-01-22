@@ -9,9 +9,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Tic Tac Toe</title>
+    <style type="text/css">
+      .cell {
+        height: 3em;
+      }
+    </style>
   </head>
 <body>
-<div class="container">
+
+<div class="container" data-route="home">
   <div class="jumbotron mt-1">
     <h1 class="display-4">Tic Tac Toe</h1>
     <p class="lead">This is an example of a dApp written on the Ethereum blockchain.</p>
@@ -37,7 +43,7 @@
         <form id="find-game">
           <div class="form-group">
             <label for="address">Contract address</label>
-            <input type="text" name="address" class="form-control" placeholder="0xe661B6E3b074ef128Da7f1eBf874E1cB5debD2Be">
+            <input type="text" name="address" class="form-control" placeholder="0xe661B6E3b074ef128Da7f1eBf874E1cB5debD2Be" required>
           </div>
 
           <button type="submit" class="btn btn-secondary">Load</button>
@@ -46,6 +52,39 @@
     </div>
   </div>
 </div>
+
+<div class="container" data-route="game" style="display: none;">
+  <div class="jumbotron mt-1">
+    <h1 class="display-4">Tic Tac Toe</h1>
+    <p class="lead">Here's your current game:</p>
+  </div>
+
+  <dl>
+    <dt>Contract address</dt>
+    <dd id="address"></dd>
+    <dt>Player 1</dt>
+    <dd id="player1"></dd>
+    <dt>Player 2</dt>
+    <dd id="player2"></dd>
+  </dl>
+
+  <div class="row">
+    <div class="cell col col-sm border text-center" id="cell-0"></div>
+    <div class="cell col col-sm border-top border-bottom text-center" id="cell-1"></div>
+    <div class="cell col col-sm border text-center" id="cell-2"></div>
+  </div>
+  <div class="row">
+    <div class="cell col col-sm border-left border-right text-center" id="cell-3"></div>
+    <div class="cell col col-sm border-right text-center" id="cell-4"></div>
+    <div class="cell col col-sm border-right text-center" id="cell-5"></div>
+  </div>
+  <div class="row">
+    <div class="cell col col-sm border text-center" id="cell-6"></div>
+    <div class="cell col col-sm border-top border-bottom text-center" id="cell-7"></div>
+    <div class="cell col col-sm border text-center" id="cell-8"></div>
+  </div>
+</div>
+
 </body>
 <script src="app.js"></script>
 </html>
