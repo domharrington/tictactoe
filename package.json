@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "eslint .",
     "test": "truffle test",
-    "dev": "webpack-dev-server",
+    "start": "webpack-dev-server",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
