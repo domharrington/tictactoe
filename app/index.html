@@ -11,7 +11,7 @@
     <title>Tic Tac Toe</title>
   </head>
 <body>
-<div class="container">
+<div class="container" data-route="home">
   <div class="jumbotron mt-1">
     <h1 class="display-4">Tic Tac Toe</h1>
     <p class="lead">This is an example of a dApp written on the Ethereum blockchain.</p>
@@ -37,7 +37,7 @@
         <form id="find-game">
           <div class="form-group">
             <label for="address">Contract address</label>
-            <input type="text" name="address" class="form-control" placeholder="0xe661B6E3b074ef128Da7f1eBf874E1cB5debD2Be">
+            <input type="text" name="address" class="form-control" placeholder="0xe661B6E3b074ef128Da7f1eBf874E1cB5debD2Be" required>
           </div>
 
           <button type="submit" class="btn btn-secondary">Load</button>
@@ -45,6 +45,15 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="container" data-route="game" style="display: none;">
+  <div class="jumbotron mt-1">
+    <h1 class="display-4">Tic Tac Toe</h1>
+    <p class="lead">Here's your current game:</p>
+  </div>
+
+  <pre id="game"></pre>
 </div>
 </body>
 <script src="app.js"></script>

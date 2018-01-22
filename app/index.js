@@ -1,6 +1,8 @@
 const Web3 = require('web3');
 const contract = require('truffle-contract');
 
+const querystring = require('querystring');
+
 const contractArtifact = require('../build/contracts/TicTacToe.json');
 
 const TicTacToe = contract(contractArtifact);
@@ -13,7 +15,7 @@ window.web3Instance = web3;
 
 window.TicTacToe = TicTacToe;
 
-function findGame(address) {
+function loadGame(address) {
   window.game = TicTacToe.at(address);
   console.log('Game fetched', window.game, address);
 }
@@ -27,7 +29,7 @@ async function createGame() {
     const createdGame = await newGame.deploy({
       data: contractArtifact.bytecode,
     }).send();
-    findGame(createdGame.options.address);
+    goToGame(createdGame.options.address);
   } catch (e) {
     console.error('deploy error', e);
   }
@@ -38,9 +40,32 @@ async function createGame() {
 
 document.getElementById('create-new-game').addEventListener('click', createGame);
 
+function router() {
+  const qs = querystring.parse(document.location.search.replace('?', ''));
+
+  if (!qs.address) {
+    document.querySelector('[data-route=home]').style.display = 'block';
+    document.querySelector('[data-route=game]').style.display = 'none';
+  } else {
+    document.querySelector('[data-route=home]').style.display = 'none';
+    document.querySelector('[data-route=game]').style.display = 'block';
+    loadGame(qs.address);
+    document.getElementById('game').innerHTML = window.game.address;
+  }
+}
+
+function goToGame(address) {
+  window.history.pushState(null, '', `?address=${address}`);
+  router();
+}
+
 function formSubmit(e) {
   e.preventDefault();
-  findGame(this.address.value);
+  goToGame(this.address.value);
 }
 
 document.getElementById('find-game').addEventListener('submit', formSubmit);
+
+router();
+
+window.onpopstate = router;
